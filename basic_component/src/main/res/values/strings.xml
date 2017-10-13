@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HxhWidget</string>
+
+    <string name="app_goback">返回</string>
+
+    <string name="bankinfo_json"></string>
+
+    <string name="bankinfo_colorinfo"></string>
+
+
+    <drawable name="clr_normal">#ff6501</drawable>
+    <drawable name="clr_pressed">#a44100</drawable>
+    <string name="retract">收起</string>
+    <string name="spread">展开</string>
+</resources>

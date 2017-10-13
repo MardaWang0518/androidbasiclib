@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="c_while">#ffffff</color>
+    <!--默认主题样式-->
+    <color name="colorPrimary">#5798f5</color>
+    <color name="colorPrimaryDark">#5798f5</color>
+    <color name="colorAccent">#5798f5</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color><!--白色-->
+
+    <color name="idcard_blac">#262D34</color>
+
+    <color name="google_blue">#4E8FE7</color>
+    <color name="google_red">#EA4335</color>
+    <color name="google_green">#34A853</color>
+    <color name="google_yellow">#FBBC05</color>
+
+    <!--Calendar样式-->
+    <color name="calendar_bg_clolor">#f9f9f9</color>
+    <color name="calendar_text_orange">#f95a45</color>
+    <color name="actionbar_onelevel_color">#357aeb</color>
+    <color name="actionbar_twolevel_cblackolor">#FFFFFF</color>
+    <color name="actionbar_twolevel_color">#FFFFFF</color>
+    <!--背景颜色-->
+    <color name="work_bg_ee">#EEEEEE</color>
+
+    <!--日期选择器-->
+    <color name="calendar_mdtp_accent_color">#50a0f0</color>
+    <color name="calendar_mdtp_accent_color_dark">#50a0f0</color>
+
+    <color name="line">#F8F8F8</color>
+    <color name="split_main">#e6e6e6</color>
+    <color name="black">#000100</color>
+</resources>

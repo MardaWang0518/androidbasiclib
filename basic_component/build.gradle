@@ -1,0 +1,94 @@
+
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+}
+
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    //谁用了butterknife 谁去写这句代码，一般来说，butterknife应该写在主 module 中
+    compile rootProject.ext.requiredDependencies["butterknife"]
+    annotationProcessor rootProject.ext.requiredDependencies["butterknife-compiler"]
+
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+
+    //开始引入基础包
+//    compile rootProject.ext.requiredDependencies["appcompat_v7"]
+//    compile rootProject.ext.requiredDependencies["support_v4"]
+//    compile rootProject.ext.requiredDependencies["recyclerview_v7"]
+
+    //需要引入的
+    compile rootProject.ext.requiredDependencies["okhttp"]
+    compile rootProject.ext.requiredDependencies["okio"]
+    compile rootProject.ext.requiredDependencies["retrofit"]
+    compile rootProject.ext.requiredDependencies["retrofitConvertGson"]
+    compile rootProject.ext.requiredDependencies["retrofitConvertJackson"]
+    compile rootProject.ext.requiredDependencies["retrofitConvertString"]
+    compile rootProject.ext.requiredDependencies["okhttpInterceptro"]
+    compile rootProject.ext.requiredDependencies["rxjava"]
+    compile rootProject.ext.requiredDependencies["rxandroid"]
+    compile rootProject.ext.requiredDependencies["rxjavaRetrofiAdapter"]
+    compile rootProject.ext.requiredDependencies["glide"]
+    compile rootProject.ext.requiredDependencies["autoLayout"]
+    compile rootProject.ext.requiredDependencies["fragmention"]
+    compile rootProject.ext.requiredDependencies["fragmenton_swipeback"]
+    compile rootProject.ext.requiredDependencies["design"]
+    //仿Ios的 Alert
+    compile rootProject.ext.requiredDependencies["alertview"]
+    compile rootProject.ext.requiredDependencies["gson"]
+    compile rootProject.ext.requiredDependencies["imageloader"]
+    //fastjson
+    compile rootProject.ext.requiredDependencies["fastjson"]
+    compile  rootProject.ext.requiredDependencies["photoView"]
+    compile  rootProject.ext.requiredDependencies["pdf_viewer"]
+
+    //greendao
+    compile rootProject.ext.dependencies["greendao"]
+    compile rootProject.ext.dependencies["xrecycleview"]
+    compile rootProject.ext.dependencies["navigationtabstrip"]
+    compile rootProject.ext.dependencies["preference-v14"]
+    compile rootProject.ext.dependencies["customtabs"]
+    compile rootProject.ext.dependencies["palette-v7"]
+    compile rootProject.ext.dependencies["percent"]
+    compile rootProject.ext.dependencies["joda-time"]
+    compile rootProject.ext.dependencies["sublimepickerlibrary"]
+    compile  rootProject.ext.dependencies["okhttputils"]
+
+    //ARouter
+    compile rootProject.ext.dependencies["arouter"]
+    compile project (':basic_component_annotation1')
+    compile 'com.kyleduo.switchbutton:library:1.4.6'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+}
+apply plugin: com.hxh.aspjplugin.AspectjPlugin

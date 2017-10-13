@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+   android:id="@+id/view_request" >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24px"
+        android:textColor="#666666"
+        android:text="什么都没有哦~"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_tip"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28px"
+        android:text="可以尝试点击空白地方刷新哦"
+        android:textColor="#666666"
+        android:id="@+id/tv_isrefresh"
+        android:layout_below="@id/tv_tip"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15px"
+        android:paddingBottom="15dp"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:layout_width="150px"
+        android:src="@mipmap/icon_empty"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10px"
+        android:layout_above="@id/tv_tip"
+        android:scaleType="centerInside"
+        android:id="@+id/iv_emptyicon"
+        android:layout_height="150px" />
+
+</RelativeLayout>

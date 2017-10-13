@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoFrameLayout
+    android:layout_width="match_parent"
+    android:id="@+id/frame_toolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="90px">
+
+    <!-- 默认的BackVIew -->
+    <com.hxh.component.basicore.CommonConponet.DefaultBackButton
+        android:layout_width="210px"
+        android:layout_marginLeft="20px"
+        android:visibility="gone"
+        android:layout_gravity="left|center_vertical"
+        android:id="@+id/btn_defaultback"
+
+        android:layout_height="match_parent">
+
+
+    </com.hxh.component.basicore.CommonConponet.DefaultBackButton>>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34px"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:gravity="right"
+        android:id="@+id/tv_title"
+        />
+
+    <!-- 默认的右边按钮 -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right|center"
+        android:background="@color/transparent"
+        android:id="@+id/btn_rightview"
+        android:textSize="28px"
+        android:minWidth="120px"
+        android:paddingRight="22px"
+
+        android:layout_gravity="right|center_vertical"
+        />
+
+
+    <!-- 默认的图标 -->
+    <LinearLayout
+        android:layout_width="260px"
+        android:visibility="gone"
+        android:orientation="horizontal"
+
+        android:id="@+id/linear_actionbar_right"
+        android:layout_marginRight="20px"
+        android:gravity="right"
+        android:layout_gravity="right|center_vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="48px"
+            android:layout_height="48px"
+            android:scaleType="fitXY"
+            android:layout_gravity="right|center_vertical"
+            android:id="@+id/actionbar_rightview_img"
+            />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#999999"
+        android:alpha="0.2"
+        android:id="@+id/view_splitline"
+        />
+
+</com.zhy.autolayout.AutoFrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic_business_component/basic_business_component.iml" filepath="$PROJECT_DIR$/basic_business_component/basic_business_component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic_component/basic_component.iml" filepath="$PROJECT_DIR$/basic_component/basic_component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" filepath="$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" filepath="$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildsrc/buildsrc.iml" filepath="$PROJECT_DIR$/buildsrc/buildsrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/daily_wagepro.iml" filepath="$PROJECT_DIR$/daily_wagepro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emptymodule/emptymodule.iml" filepath="$PROJECT_DIR$/emptymodule/emptymodule.iml" />
+    </modules>
+  </component>
+</project>

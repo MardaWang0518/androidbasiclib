@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:psd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    >
+
+    <LinearLayout
+        android:id="@+id/linear_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" >
+
+            <!-- 取消按钮 -->
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="60px"
+                android:layout_centerVertical="true"
+                android:layout_height="60px"
+
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="20px"
+                android:background="@mipmap/icon_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="请输入支付密码"
+                android:textColor="#000000"
+                android:textSize="30px" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:alpha="0.2"
+            android:background="#999999"/>
+
+        <!-- 6位密码框布局，需要一个圆角边框的shape作为layout的背景 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26px"
+            android:textColor="#666666"
+            android:text="提现金额"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="54px"
+            android:textColor="#000000"
+            android:text="¥54.10"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10px"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:alpha="0.2"
+            android:layout_marginTop="15px"
+            android:background="#999999" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/rl_mycard"
+            android:layout_marginTop="20px"
+            android:layout_height="110px">
+
+            <ImageView
+                android:layout_width="72px"
+                android:layout_height="72px"
+                android:scaleType="centerInside"
+                android:layout_marginLeft="30px"
+
+                android:id="@+id/iv_cardlogo"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30px"
+                android:textColor="#797979"
+
+                android:layout_toRightOf="@id/iv_cardlogo"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="20px"
+                android:id="@+id/tv_cardname"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24px"
+                android:textColor="#666666"
+
+                android:layout_toRightOf="@id/iv_cardlogo"
+                android:layout_below="@id/tv_cardname"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="10px"
+                android:id="@+id/tv_cardinfo"
+                />
+
+            <ImageView
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:src="@mipmap/icon_go_up"
+                android:scaleType="centerInside"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30px"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:alpha="0.2"
+                android:layout_alignParentBottom="true"
+                android:background="#999999" />
+
+        </RelativeLayout>
+
+        <com.hxh.component.basicore.ui.PayPsdInputEditView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            psd:maxCount="5"
+            psd:rectAngle="5dp"
+            psd:psdType="weChat"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/shape_input_are"
+            android:orientation="horizontal" >
+
+            <!--
+                 inputType设置隐藏密码明文
+                 textSize设置大一点，否则“点”太小了，不美观
+            -->
+
+            <TextView
+                android:id="@+id/tv_pass1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:alpha="0.4"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <TextView
+                android:id="@+id/tv_pass2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:alpha="0.4"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <TextView
+                android:id="@+id/tv_pass3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:alpha="0.4"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <TextView
+                android:id="@+id/tv_pass4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:alpha="0.4"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <TextView
+                android:id="@+id/tv_pass5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:alpha="0.4"
+                android:layout_height="match_parent"
+                android:background="#999999" />
+
+            <TextView
+                android:id="@+id/tv_pass6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:textSize="32sp" />
+        </LinearLayout>
+
+        <!-- 忘记密码链接 -->
+
+        <TextView
+            android:id="@+id/tv_forgetPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="15dp"
+            android:text="忘记密码？"
+            android:visibility="gone"
+            android:textColor="#354EEF" />
+    </LinearLayout>
+
+    <!-- 输入键盘 -->
+
+    <!--<GridView-->
+        <!--android:id="@+id/gv_keybord"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/linear_pass"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:background="@android:color/black"-->
+        <!--android:horizontalSpacing="0.5dp"-->
+        <!--android:listSelector="@null"-->
+        <!--android:numColumns="3"-->
+        <!--android:verticalSpacing="0.5dp" />&lt;!&ndash; android:listSelector="@null"取消系统自带的按下效果，否则模拟键盘外围会有黑边 &ndash;&gt;-->
+
+</RelativeLayout>

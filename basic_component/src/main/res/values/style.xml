@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">?android:attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?android:attr/colorPrimaryDark</item>
+        <item name="colorAccent">?android:attr/colorAccent</item>
+
+    </style>
+
+
+
+    <!-- dialog 默认样式-->
+    <style name="DefaultAlertDialogStyle" parent="@android:style/Theme.Dialog">
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:windowIsFloating">true</item>
+
+        <item name="android:windowFrame">@null</item>
+
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
+
+    <!-- 微信弹窗 -->
+    <style name="keyboard_dialog" parent="Theme.AppCompat.Light">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+</style>
+
+
+    <style name="SwitchButtonStyleMD" parent="SwitchButtonMD">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+
+    <style name="Transparent_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+
+
+
+
+    <style name="default_dialog_theme" parent="@android:style/Theme.Dialog">
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 遮罩层 -->
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+</resources>

@@ -1,0 +1,63 @@
+if (isRealse.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'me.tatarka.retrolambda'
+
+
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled false
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    sourceSets
+            {
+                main
+                        {
+                            if (isRealse.toBoolean()) {
+                                manifest.srcFile 'src/main/realse/AndroidManifest.xml'
+                            } else {
+                                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+                            }
+                        }
+            }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+
+dependencies {
+    releaseCompile  project(path:':basic_business_component',configuration:'release')
+    debugCompile   project(path:':basic_business_component',configuration:'debug')
+
+    //引入Arouter编译器
+    annotationProcessor rootProject.ext.requiredDependencies["butterknife-compiler"]
+    annotationProcessor project(':basic_component_compile')
+}
+apply plugin: com.hxh.aspjplugin.AspectjPlugin
