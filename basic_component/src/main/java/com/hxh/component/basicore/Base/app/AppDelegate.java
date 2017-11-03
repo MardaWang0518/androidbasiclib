@@ -110,6 +110,8 @@ public class AppDelegate  implements IApp{
 
         }
 
+
+
         @Override
         public void onLowMemory() {
             //内存不足时候，请求清除图片的内存缓存

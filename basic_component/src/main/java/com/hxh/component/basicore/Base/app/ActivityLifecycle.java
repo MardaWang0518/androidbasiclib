@@ -20,16 +20,12 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        if (activity instanceof AppCompatActivity) {
-            AppCompatActivity activity1 = ((AppCompatActivity) activity);
-            AppManager.addActivity(activity1);
-        }
-        if (CoreLib.getInstance().getAppComponent().globalActionBarProvider().isEnableImmeriveMode()) {
-            Utils.SystemUtil.enableImmersiveMode(activity);
-        }
-
+        AppManager.addActivity(activity);
+        checkIsEnableImmeriveMode(activity);
 
     }
+
+
 
     @Override
     public void onActivityStarted(Activity activity) {
@@ -60,7 +56,15 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if (activity instanceof AppCompatActivity)
-            AppManager.removeActivity(((AppCompatActivity) activity));
+        AppManager.removeActivity(activity);
+
+    }
+
+
+    private void checkIsEnableImmeriveMode(Activity activity)
+    {
+        if (CoreLib.getInstance().getAppComponent().globalActionBarProvider().isEnableImmeriveMode()) {
+            Utils.SystemUtil.enableImmersiveMode(activity);
+        }
     }
 }

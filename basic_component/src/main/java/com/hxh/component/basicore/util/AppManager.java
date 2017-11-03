@@ -20,7 +20,7 @@ import java.util.Stack;
  * 当功能是全局性的，而且不和业务相关的时候，请放入此类中
  */
 public class AppManager {
-    private static Stack<AppCompatActivity> mActivitys;
+    private static Stack<Activity> mActivitys;
 
     /**
      * 向Activity集合中添加一个Activity
@@ -35,12 +35,21 @@ public class AppManager {
         mActivitys.add(activity);
     }
 
+    public static void addActivity(Activity activity)
+    {
+        if(null == mActivitys)
+        {
+            mActivitys = new Stack<>();
+        }
+        mActivitys.add(activity);
+    }
+
     /**
      * 得到当前的Activity
      * 因为Activity栈顶的是当前Activity，但是集合添加是从 上至下 ，所以最后一个就是当前
      * @return
      */
-    public static AppCompatActivity getCurrentActivity()
+    public static Activity getCurrentActivity()
     {
 
         if(null != mActivitys)
@@ -54,6 +63,11 @@ public class AppManager {
 
 
     public static void removeActivity(AppCompatActivity activity)
+    {
+        mActivitys.remove(activity);
+    }
+
+    public static void removeActivity(Activity activity)
     {
         mActivitys.remove(activity);
     }

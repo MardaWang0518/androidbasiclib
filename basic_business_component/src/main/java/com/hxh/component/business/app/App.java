@@ -31,8 +31,6 @@ import com.hxh.component.business.utils.Constant;
  * 2. AppInitDelegate 是进行初始化的地方(初始化你的各种sdk，或者数据之类)
  */
 public class App extends Application implements IApp {
-
-
     private AppDelegate mAppDelegate;
     private static AppInitDelegate mAppInitDelegate;
     private static Context mContext;
@@ -53,6 +51,7 @@ public class App extends Application implements IApp {
 
 
     }
+
 
     private CoreLib initCoreLib() {
         return new CoreLib

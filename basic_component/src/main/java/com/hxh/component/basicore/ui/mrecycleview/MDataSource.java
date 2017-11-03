@@ -1,13 +1,9 @@
 package com.hxh.component.basicore.ui.mrecycleview;
 
 import android.os.Build;
-import android.util.ArrayMap;
-import android.util.SparseArray;
 
-import com.hxh.component.basicore.Base.adapter.BaseRecyAdapter;
 import com.hxh.component.basicore.rx.resetfulhttpstyle.RESTFULProgressSubscribe;
-import com.hxh.component.basicore.util.Log;
-import com.hxh.component.basicore.util.Mapper;
+import com.hxh.component.basicore.mvp.Mapper;
 import com.hxh.component.basicore.util.Utils;
 
 import java.util.ArrayList;

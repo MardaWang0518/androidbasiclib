@@ -1,4 +1,4 @@
-package com.hxh.component.basicore.util;
+package com.hxh.component.basicore.mvp;
 
 /**
  * VO 转换基类
