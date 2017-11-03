@@ -240,7 +240,7 @@ public class ToolBarDelegate {
                 btn_rightButton.setVisibility(View.GONE);
                 linear_actionbar_right.setOnClickListener(clicklistener);
                 btn_rightButton = null;
-            } else if (null != mActionbarconfig.getRight_buttontitle() && !"".equals(mActionbarconfig.getRight_buttontitle())) {
+            } else if (null != mActionbarconfig.getRight_buttontitle()) {
                 linear_actionbar_right.setVisibility(View.GONE);
                 actionbar_rightview_img.setVisibility(View.GONE);
                 btn_rightButton.setVisibility(View.VISIBLE);
@@ -356,7 +356,8 @@ public class ToolBarDelegate {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            if (id == R.id.actionbar_leftview) {
+            if (id == R.id.actionbar_leftview)
+            {
 
             } else if (id == R.id.btn_rightview || id == R.id.linear_actionbar_right) {
                 if (null != mActionbarconfig.getListener()) {

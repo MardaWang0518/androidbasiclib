@@ -38,6 +38,8 @@ public class EmptyFragment extends AppCompartAutoLayoutFragment
         mParceableDelegate = new IntentDelegate(getArguments());
     }
 
+
+
     //region 日志
     @Override
     public void d(String msg) {

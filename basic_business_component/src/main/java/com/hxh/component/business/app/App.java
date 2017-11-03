@@ -26,7 +26,9 @@ import com.hxh.component.business.common.UserInfoDTO;
 import com.hxh.component.business.utils.Constant;
 
 /**
- * Created by hxh on 2017/7/13.
+ * App初始化流程：
+ * 1. oncreate委托给AppDelegate去进行一些系统初始化(一般而言，不用动)
+ * 2. AppInitDelegate 是进行初始化的地方(初始化你的各种sdk，或者数据之类)
  */
 public class App extends Application implements IApp {
 
@@ -48,11 +50,8 @@ public class App extends Application implements IApp {
         mAppInitDelegate = new AppInitDelegate(mAppDelegate, this);
         mAppInitDelegate.init();
 
-        mAppDelegate.registerBugManager(mAppInitDelegate.getBugManager());
-        mAppDelegate.registerActionBarProvider(new ActionBarProvider.Builder()
-                .backImg(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_back_white))
 
-                .build());
+
     }
 
     private CoreLib initCoreLib() {
@@ -69,12 +68,11 @@ public class App extends Application implements IApp {
                                     }
                                 }))
                                 .configLogInteceptor(HttpInterceptor.buildLogInterceptor())
-                                .configConverterFactory(ConverterFactory.defaultConvertFactory())
+                                .configConverterFactory(ConverterFactory.getConverter(ConverterFactory.FASTJSON))
                                 .enableCache(10 * 1024 * 1024)
                                 .configHttpBaseUrl(BuildConfig.AUTH_ENDPOINT, true)
                                 .build()
                 )
-
                 .build()
                 .init();
     }

@@ -1,11 +1,12 @@
 package com.hxh.component.business.arouter.provider.base;
 
+import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
- * Created by hxh on 2017/5/26.
+ * 适用于 ISupportFragment
  */
 public interface ISupportFragmentProvider extends IBaseProvider {
-    SupportFragment newInstance(Object... args);
+    ISupportFragment newInstance(Object... args);
 
 }

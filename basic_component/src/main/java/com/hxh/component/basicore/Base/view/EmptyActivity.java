@@ -22,8 +22,14 @@ import java.util.List;
 /**
  * 这个空的Activity基类，主要是为了扩展
  */
-public class EmptyActivity extends AppCompartAutoLayoutActivity
-        implements ILogRelated,IViewRelated,IIntentRelated {
+public class EmptyActivity
+        extends
+        AppCompartAutoLayoutActivity
+        implements
+        ILogRelated,  //Log支持
+        IViewRelated, //View支持
+        IIntentRelated //Intent支持
+{
 
 
 

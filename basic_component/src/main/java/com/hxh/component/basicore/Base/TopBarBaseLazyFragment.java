@@ -45,6 +45,7 @@ public abstract class TopBarBaseLazyFragment<P extends IPresenter>
         return rootview;
     }
 
+
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();

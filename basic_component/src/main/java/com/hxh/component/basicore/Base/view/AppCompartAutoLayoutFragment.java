@@ -17,10 +17,13 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
- * Created by hxh on 2017/7/26.
+ * Fragment的基类。
+ * 集成了 AutoLayout和Fragmetion
  */
 public class AppCompartAutoLayoutFragment extends Fragment implements ISupportFragment
 {
+
+    //region fragmetion
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;
 
@@ -38,12 +41,19 @@ public class AppCompartAutoLayoutFragment extends Fragment implements ISupportFr
         return mDelegate.extraTransaction();
     }
 
+    public FragmentActivity getmActivity()
+    {
+        return _mActivity;
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mDelegate.onAttach(activity);
         _mActivity = mDelegate.getActivity();
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -428,4 +438,5 @@ public class AppCompartAutoLayoutFragment extends Fragment implements ISupportFr
     public <T extends ISupportFragment> T findChildFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getChildFragmentManager(), fragmentClass);
     }
+    //endregion
 }

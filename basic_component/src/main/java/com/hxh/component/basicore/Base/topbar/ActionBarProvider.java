@@ -33,7 +33,8 @@ public class ActionBarProvider {
      */
     public int backColor;
 
-
+    private boolean
+            isEnableImmeriveMode = false;//是否开启沉浸式体验？
     public static class Builder
     {
         private int topBar_height;
@@ -43,11 +44,19 @@ public class ActionBarProvider {
         private int backColor;
         private int oneBGColor,twoBGColor;
         private List<NLevelPageBgConfigBean> mNlevelPagesConfigs;
+        private boolean isEnableImmeriveMode = false;//是否开启沉浸式体验？
         public Builder height(int height)
         {
             this.topBar_height = height;
             return this;
         }
+
+        public Builder enableImmeriveMode()
+        {
+            this.isEnableImmeriveMode = true;
+            return this;
+        }
+
 
         public Builder backImg(Bitmap m_backImg)
         {
@@ -91,7 +100,7 @@ public class ActionBarProvider {
 
         public ActionBarProvider build()
         {
-            return new ActionBarProvider(topBar_height,m_backImg,m_backTitle,backColor,oneBGColor,twoBGColor,mNlevelPagesConfigs);
+            return new ActionBarProvider(topBar_height,m_backImg,m_backTitle,backColor,oneBGColor,twoBGColor,mNlevelPagesConfigs,isEnableImmeriveMode);
         }
 
     }
@@ -103,7 +112,7 @@ public class ActionBarProvider {
      * @param backColor  指定返回键的颜色
      */
     public ActionBarProvider(int height,Bitmap m_backImg, String m_backTitle,int backColor
-    ,int oneColor,int twoColor,List<NLevelPageBgConfigBean> configs) {
+    ,int oneColor,int twoColor,List<NLevelPageBgConfigBean> configs,boolean isenableimmerive) {
         this.topBar_height = height;
         this.m_backImg = m_backImg;
         this.m_backTitle = m_backTitle;
@@ -111,6 +120,7 @@ public class ActionBarProvider {
         this.pageBackgroundConfigs = configs;
         this.oneColor = oneColor;
         this.twoColor = twoColor;
+        this.isEnableImmeriveMode = isenableimmerive;
     }
 
 
@@ -153,5 +163,9 @@ public class ActionBarProvider {
 
     public int getTopBar_height() {
         return topBar_height;
+    }
+
+    public boolean isEnableImmeriveMode() {
+        return isEnableImmeriveMode;
     }
 }

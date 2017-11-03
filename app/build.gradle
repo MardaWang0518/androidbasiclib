@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-aspectjx'
 
 android {
 
@@ -56,17 +56,16 @@ android {
     dexOptions {
         incremental true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
+ 
 
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 
+
 dependencies {
+    compile 'org.aspectj:aspectjrt:1.8.10'
+
     //arouter
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2'
     //butterknife
@@ -80,8 +79,8 @@ dependencies {
         debugCompile   project(path:':emptymodule',configuration:'debug')
 
     } else {
-        releaseCompile  project(path:':emptymodule',configuration:'release')
-        debugCompile   project(path:':emptymodule',configuration:'debug')
+        releaseCompile  project(path:':basic_business_component',configuration:'release')
+        debugCompile   project(path:':basic_business_component',configuration:'debug')
     }
 
 
@@ -89,4 +88,5 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 }
-apply plugin: com.hxh.aspjplugin.AspectjPlugin
+
+//apply plugin: com.hxh.aspjplugin.AspectjPlugin

@@ -1,12 +1,16 @@
 package com.hxh.component.basicore.ui.mrecycleview;
 
 import android.os.Build;
+import android.util.ArrayMap;
+import android.util.SparseArray;
 
 import com.hxh.component.basicore.Base.adapter.BaseRecyAdapter;
 import com.hxh.component.basicore.rx.resetfulhttpstyle.RESTFULProgressSubscribe;
 import com.hxh.component.basicore.util.Log;
+import com.hxh.component.basicore.util.Mapper;
 import com.hxh.component.basicore.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,10 +36,10 @@ public class MDataSource<D> {
      */
     public static int EMPTYVIEWFORCED_WHENNODATA = 0x3;
 
-//    /**
-//     * 当存在数据时候，进行覆盖数据，而不是刷新
-//     * 场景如： 有3种类型的书籍，每种数据不一样，每次将数据进行覆盖
-//     */
+    //    /**
+    //     * 当存在数据时候，进行覆盖数据，而不是刷新
+    //     * 场景如： 有3种类型的书籍，每种数据不一样，每次将数据进行覆盖
+    //     */
     public static int HAVEDATA_FORCEDCOVER = 0x4;
 
     public static int HAVEDATA_ADDTOFRONT = 0x5;
@@ -55,29 +59,40 @@ public class MDataSource<D> {
     private ParamCallback mParamCallback;
     private List<D> mFixedDatas;
     private boolean mFixedDataIsTop;//是否让固定数据处于最顶端
+    /**
+     * 标明只设置了参数的Key,和@Link mParamKeys 共用
+     */
     private boolean isOnlyKey;
+    /**
+     * 设置参数的Key,Value通过Fetch(value...)传入，适用于已经有数据，不需要请求接口的场景
+     */
     private String[] mParamKeys;
+    /**
+     * 当没有响应数据时，应该怎样处理
+     */
     private int mNodataTypeWhenRequest = EMPTY_WHENNODATA;
+    /**
+     * 当有响应数据时，应该怎样处理
+     */
     private int mHaveDataTypeWhenResponse = HAVEDATA_ADDTOFRONT;
+    /**
+     * 当没有数据时候的回调器
+     */
     private NoDataCallback mNoDataCallback;
+    /**
+     * 初始页码（有可能初始页码是1，也有可能是2，根据用户来定，必须）
+     */
+    private int initPageIndex;
 
-    interface IDataSourceView<D> {
-        void setNetData(List<D> result);
+    /**
+     * 结果拦截器
+     */
+    private MRecycleViewResponseInterceptor<D> mResInterceptor; //结果拦截器
+    private MRecycleViewResponseInterceptorAsync<D> mResInterceptorAsync; //结果拦截器
+    private boolean isEnableInterceptor;
 
-        void setLocalData(List<D> result);
-
-        void setEmpty();
-
-        void clearData();
-
-        boolean isRefresh();
-
-        boolean isLoadMore();
-
-        void enableRefreshAndLoadMore();
-
-        BaseRecyAdapter getAdapter();
-    }
+    private boolean isEnableTranFrom;
+    private Class<? extends Mapper> targetMapper;
 
     //region 配置
 
@@ -182,7 +197,7 @@ public class MDataSource<D> {
      */
     public MDataSource setPagination(PaginationBuilder builder) {
         this.mPaginBuilder = builder;
-
+        this.initPageIndex = builder.pageIndex;
         if (null != builder && null != mView) mView.enableRefreshAndLoadMore();
 
         return this;
@@ -191,7 +206,7 @@ public class MDataSource<D> {
     /**
      * 当没有数据时，页面将如何显示
      *
-     * @param type  EMPTYVIEWFORCED_WHENNODATA     EMPTY_WHENNODATA ...
+     * @param type EMPTYVIEWFORCED_WHENNODATA     EMPTY_WHENNODATA ...
      * @return
      */
     public MDataSource setNoDataStateWhenRequest(int type) {
@@ -201,6 +216,41 @@ public class MDataSource<D> {
 
     public MDataSource setHaveDataStateWhenRequest(int type) {
         this.mHaveDataTypeWhenResponse = type;
+        return this;
+    }
+
+    /**
+     * 设置结果拦截器，你可以在数据响应时候，处理一些事情
+     *
+     * @param interceptor 拦截器
+     * @return
+     */
+    public MDataSource setResponseInterceptor(MRecycleViewResponseInterceptor<D> interceptor) {
+        this.mResInterceptor =interceptor;
+        isEnableInterceptor  = true;
+        this.mResInterceptorAsync =null;
+        return this;
+    }
+    public MDataSource setResponseInterceptorAsync(MRecycleViewResponseInterceptorAsync<D> interceptor) {
+        this.mResInterceptorAsync =interceptor;
+        this.mResInterceptor =null;
+        isEnableInterceptor  = true;
+        return this;
+    }
+
+
+    /**
+     * 设置结果转换，你可以把原结果转换为另外一个结果，用途：
+     * 1. 很多时候，DTO需要转成VO对象，你可以使用上面的setResponseInterceptor 设置拦截器后自己转换，
+     * 也可以使用此方法，设置转换目标类，即可把结果转换成目标对象，并且传递给Adapter
+     * ,如果你还想对结果进行二次处理，请调用setResponseInterceptor 设置拦截器
+     *
+     * @param target
+     * @return
+     */
+    public MDataSource setResponseTransfrom(Class<? extends Mapper> target) {
+        this.isEnableTranFrom = true;
+        this.targetMapper = target;
         return this;
     }
 
@@ -237,11 +287,17 @@ public class MDataSource<D> {
         loadData(null);
     }
 
+
+
     /**
      * @param resulelist 从别的界面携带过来的数据
      * @Title 当你从别的界面跳转携带过来数据，不要再加载时候
      */
     public void fetch(List<D> resulelist) {
+        if(isEnableTranFrom)
+        {
+
+        }
         loadData(resulelist);
     }
 
@@ -268,6 +324,7 @@ public class MDataSource<D> {
     }
 
     private void loadData(List<D> list) {
+        //region local
         if (null == mNetRepository) {
             if (null == list || 0 == list.size()) {
                 if (mNodataTypeWhenRequest == EMPTYVIEWFORCED_WHENNODATA) {
@@ -278,18 +335,19 @@ public class MDataSource<D> {
 
             } else {
                 mView.clearData();
-                if(null != mNoDataCallback){
+                if (null != mNoDataCallback) {
                     mNoDataCallback.onHaveData();
                 }
                 mView.setLocalData(list);
             }
             return;
         }
+        //endregion
         if (null != list && 0 != list.size()) {
-            if(null != mNoDataCallback){
+            if (null != mNoDataCallback) {
                 mNoDataCallback.onHaveData();
             }
-            mView.setLocalData(list);
+            mView.setNetData(list);
         } else {
             //如果没有网络
             if (!Utils.NetWork.isConnected()) {
@@ -302,25 +360,31 @@ public class MDataSource<D> {
 
             mNetRepository
                     .getData(getParam())
-                    .subscribe(new RESTFULProgressSubscribe<NetResultBean>() {
+                    .subscribe(new RESTFULProgressSubscribe<NetResultBean<D>>() {
                         @Override
                         public void _OnError(Throwable msg) {
                             getDbData();
                         }
 
                         @Override
-                        public void _OnNet(NetResultBean o) {
+                        public void _OnNet(NetResultBean<D> o) {
                             if (null == o.items || 0 == o.items.size()) {
                                 showViewWhenNoData();
                             } else {
-                                if(null != mNoDataCallback){
+                                if (null != mNoDataCallback) {
                                     mNoDataCallback.onHaveData();
                                 }
-                                if(mHaveDataTypeWhenResponse == HAVEDATA_FORCEDCOVER)
-                                {
+                                if (mHaveDataTypeWhenResponse == HAVEDATA_FORCEDCOVER) {
                                     mView.setLocalData(checkFixedData(o.items));
-                                }else {
-                                    mView.setNetData(checkFixedData(o.items));
+                                } else {
+                                    if(!isEnableInterceptor)
+                                    {
+                                        mView.setNetData(checkIsNeedTranFromData(checkFixedData(o.items)));
+                                    }else
+                                    {
+
+                                        checkIsEnableInterceptor(checkIsNeedTranFromData(checkFixedData(o.items)));
+                                    }
                                 }
 
                             }
@@ -350,7 +414,7 @@ public class MDataSource<D> {
             mParamCallback.getParam(this.mParams);
             return this.mParams;
         } else {
-            return new HashMap<>();
+            return mParams = new HashMap<>();
         }
     }
 
@@ -369,8 +433,11 @@ public class MDataSource<D> {
                                        }
                                    }
                                },
-                            throwable -> {
-                                showViewWhenNoData();
+                            new Action1<Throwable>() {
+                                @Override
+                                public void call(Throwable throwable) {
+                                    showViewWhenNoData();
+                                }
                             });
         }
     }
@@ -396,25 +463,70 @@ public class MDataSource<D> {
         return o;
     }
 
+    private List<D> checkIsNeedTranFromData(List<D> datas) {
+
+        if (isEnableTranFrom) {
+            List target = new ArrayList();
+            for (D item : datas) {
+                if (item instanceof Mapper) {
+                    target.add(((Mapper) item).transform());
+                } else {
+                    throw new IllegalStateException("if you enable responseTransFrom,So you have to get your Bean implemented in the Mapper<T>");
+                }
+            }
+            datas.clear();
+            datas.addAll(target);
+        }
+        return datas;
+    }
+
+    private List<D> checkIsEnableInterceptor(List<D> datas)
+    {
+        if (null != mResInterceptor) {
+
+            return mResInterceptor.setData(datas);
+        }else if(null != mResInterceptorAsync)
+        {
+            mResInterceptorAsync
+                    .setData(datas)
+                    .subscribe(new RESTFULProgressSubscribe<List<D>>() {
+                        @Override
+                        public void _OnError(Throwable msg) {
+
+                        }
+
+                        @Override
+                        public void _OnNet(List<D> ds) {
+
+                        }
+                    });
+        }
+        return datas;
+    }
+
     private void initFetch() {
         // if(null == mNetRepository)throw new IllegalStateException("newRepository can't is null");
 
         //看是否支持分页加载
-        if (mView.isRefresh() || mView.isLoadMore() && null == mPaginBuilder) {
-            mPaginBuilder = new PaginationBuilder
-                    .Builder()
-                    .setPageSize(10)
-                    .create();
-        }
-
-        if (null != mPaginBuilder) {
-            getParam().remove(PaginationBuilder.PAGEKEY);
-            if (mView.isRefresh()) {
-                getParam().put(PaginationBuilder.PAGEKEY, 1);
-            } else if (mView.isLoadMore()) {
-                getParam().put(PaginationBuilder.PAGEKEY, ++mPaginBuilder.pageIndex);
+        if (mView.isEnableLoadAndRefresh()) {
+            if (null == mPaginBuilder) {
+                throw new IllegalStateException("you open recycleview's refresh and loadmore,but you not setter refresh param!");
             } else {
-                getParam().put(PaginationBuilder.PAGEKEY, 1);
+                if (!getParam().containsKey(mPaginBuilder.getPageIndexFieldName())) {
+                    getParam().put(mPaginBuilder.getPageIndexFieldName(), mPaginBuilder.getPageIndex());
+                }
+                if (!getParam().containsKey(mPaginBuilder.getPageSizeFieldName())) {
+                    getParam().put(mPaginBuilder.getPageSizeFieldName(), mPaginBuilder.getPageSize());
+                }
+            }
+        }
+        if (null != mPaginBuilder) {
+            if (mView.isRefresh()) {
+                getParam().remove(PaginationBuilder.PAGEKEY);
+                getParam().put(PaginationBuilder.PAGEKEY, initPageIndex);
+            } else if (mView.isLoadMore()) {
+                getParam().remove(PaginationBuilder.PAGEKEY);
+                getParam().put(PaginationBuilder.PAGEKEY, ++mPaginBuilder.pageIndex);
             }
         }
     }

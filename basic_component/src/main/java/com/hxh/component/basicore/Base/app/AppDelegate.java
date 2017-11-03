@@ -13,7 +13,7 @@ import com.hxh.component.basicore.net.NetProvider;
 import com.hxh.component.basicore.net.RequestCallBackHandler;
 
 /**
- * Created by hxh on 2017/7/8.
+ * Application 委托类
  */
 public class AppDelegate  implements IApp{
 

@@ -23,9 +23,11 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
- * Created by hxh on 2017/3/22.
+ * Activity的基类。
+ * 集成了 AutoLayout和Fragmetion
  */
 public class AppCompartAutoLayoutActivity extends AppCompatActivity implements ISupportActivity {
+    //region autolayout
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
     private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
     private static final String LAYOUT_RELATIVELAYOUT = "RelativeLayout";
@@ -53,8 +55,9 @@ public class AppCompartAutoLayoutActivity extends AppCompatActivity implements I
 
         return super.onCreateView(name, context, attrs);
     }
+    //endregion
 
-
+    //region fragmention
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
 
     @Override
@@ -272,4 +275,5 @@ public class AppCompartAutoLayoutActivity extends AppCompatActivity implements I
     public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
     }
+    //endregion
 }

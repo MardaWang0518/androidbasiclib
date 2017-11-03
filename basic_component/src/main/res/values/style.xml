@@ -88,4 +88,11 @@
         <!-- 遮罩层 -->
         <item name="android:backgroundDimAmount">0.5</item>
     </style>
+
+    <style name="base_divider_line">
+        <item name="android:background">@color/split_main</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
 </resources>

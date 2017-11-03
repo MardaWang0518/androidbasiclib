@@ -4,7 +4,7 @@ if (isRealse.toBoolean()) {
     apply plugin: 'com.android.application'
 }
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-aspectjx'
 
 
 
@@ -44,10 +44,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+   
 
 }
 
@@ -60,4 +57,3 @@ dependencies {
     annotationProcessor rootProject.ext.requiredDependencies["butterknife-compiler"]
     annotationProcessor project(':basic_component_compile')
 }
-apply plugin: com.hxh.aspjplugin.AspectjPlugin

@@ -78,10 +78,6 @@ public class MRecycleView<D> extends FrameLayout{
     }
 
 
-
-
-
-
     //region 你可以用的方法
 
     /**
@@ -203,26 +199,43 @@ public class MRecycleView<D> extends FrameLayout{
         return mAdapterDataSource;
     }
 
+    private void closeRefresh()
+    {
+        if(isEnableLoading && isLoading)
+        {
+            isLoading = false;
+            this.recycleview.loadMoreComplete();
+        }
 
+        if(isEnableRefresh && isRefresing)
+        {
+            isRefresing = false;
+            this.recycleview.refreshComplete();
+        }
+    }
 
     //endregion
 
 
 
-    private class AdaterDataSourceImpl<P> implements MDataSource.IDataSourceView
+    private class AdaterDataSourceImpl<P> implements IDataSourceView
     {
 
-        @DataSave(DataSourceType.SP)
+
+
+        //@DataSave(DataSourceType.SP)
         @Override
         public void setNetData(List result) {
-            if(recycleview.getVisibility()==GONE)recycleview.setVisibility(VISIBLE);
-            if(empty_view.getVisibility()==VISIBLE)empty_view.setVisibility(GONE);
-            isLoading = false;
-            isRefresing = false;
-            recycleview.refreshComplete();
-
-            mAdapter.refreshDatas(result);
-
+            if (recycleview.getVisibility() == GONE) recycleview.setVisibility(VISIBLE);
+            if (empty_view.getVisibility() == VISIBLE) empty_view.setVisibility(GONE);
+            if(isEnableLoadAndRefresh() &&isLoadMore())
+            {
+                mAdapter.loadData(result);
+            }else
+            {
+                mAdapter.refreshDatas(result);
+            }
+            closeRefresh();
         }
 
 
@@ -230,16 +243,17 @@ public class MRecycleView<D> extends FrameLayout{
         public void setLocalData(List result) {
             if(recycleview.getVisibility()==GONE)recycleview.setVisibility(VISIBLE);
             if(empty_view.getVisibility()==VISIBLE)empty_view.setVisibility(GONE);
-            isLoading = false;
-            isRefresing = false;
+
             recycleview.refreshComplete();
             mAdapter.setDatas(result);
+            closeRefresh();
         }
 
         @Override
         public void setEmpty() {
             recycleview.setVisibility(GONE);
             empty_view.setVisibility(VISIBLE);
+            closeRefresh();
         }
 
         @Override
@@ -247,6 +261,7 @@ public class MRecycleView<D> extends FrameLayout{
             if(null != mAdapter)
             {
                 mAdapter.clearDatas();
+                closeRefresh();
             }
         }
 
@@ -258,6 +273,11 @@ public class MRecycleView<D> extends FrameLayout{
         @Override
         public boolean isLoadMore() {
             return isLoading;
+        }
+
+        @Override
+        public boolean isEnableLoadAndRefresh() {
+            return isEnableRefresh&&isEnableLoading;
         }
 
         @Override

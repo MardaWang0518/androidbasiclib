@@ -45,7 +45,7 @@ public class AspectjPlugin implements Plugin<Project> {
         } else {
             variants = project.android.libraryVariants
         }
-
+        System.out.println("========================"+hasApp);
         project.dependencies {
             // TODO this should come transitively
             compile 'org.aspectj:aspectjrt:1.8.10'
@@ -53,7 +53,7 @@ public class AspectjPlugin implements Plugin<Project> {
 
         variants.all {
             variant ->
-
+                System.out.println("========================进入执行");
             JavaCompile javaCompile = variant.javaCompile
             javaCompile.doLast {
                 String[] args = ["-showWeaveInfo",

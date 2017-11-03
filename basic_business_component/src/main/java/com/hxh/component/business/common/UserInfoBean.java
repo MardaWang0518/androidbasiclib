@@ -12,7 +12,7 @@ import org.greenrobot.greendao.annotation.Transient;
 /**
  * 创建者：hxh
  * 时间：  2017/8/4
- * 描述：
+ * 描述：  替换为你的User类
  */
 @Entity
 public class UserInfoBean {

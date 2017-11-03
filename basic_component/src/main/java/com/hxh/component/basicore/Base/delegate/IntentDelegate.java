@@ -12,7 +12,10 @@ import com.hxh.component.basicore.util.AppManager;
 import java.io.Serializable;
 
 /**
- * Created by hxh on 2017/7/31.
+ * Intent相关支持
+ * 更新日志：
+ * 1. 现在的getExtra_Parceable()   getExtra_Seriallizable() 的默认Key是 "FROM_OBJ_TAG"
+ * @param <T>
  */
 public class IntentDelegate<T extends Parcelable> implements IIntentRelated<T> {
     private Bundle mDefaultBundle;
@@ -191,14 +194,14 @@ public class IntentDelegate<T extends Parcelable> implements IIntentRelated<T> {
     @Override
     public void startActivity(Class<?> classzz, Bundle data) {
         Intent intent = new Intent(AppManager.getCurrentActivity(),classzz);
-        intent.putExtra(DEFAULTKEY,data);
+        intent.putExtras(data);
         AppManager.getCurrentActivity().startActivity(intent);
     }
 
     @Override
     public void startActivityForResult(Class<?> classzz, Bundle data) {
         Intent intent = new Intent(AppManager.getCurrentActivity(),classzz);
-        intent.putExtra(DEFAULTKEY,data);
+        intent.putExtras(data);
         AppManager.getCurrentActivity().startActivityForResult(intent,DEFAULT_ACTIVITY_REQUESTCODE);
     }
 

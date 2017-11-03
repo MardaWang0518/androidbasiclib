@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.hxh.component.basicore.CoreLib;
 import com.hxh.component.basicore.R;
 import com.hxh.component.basicore.mvp.view.IView;
 import com.hxh.component.basicore.mvp.persenter.BasePresenter;
 import com.hxh.component.basicore.mvp.persenter.IPresenter;
 import com.hxh.component.basicore.util.AutoUtils;
 import com.hxh.component.basicore.util.ButterKnifeUtil;
+import com.hxh.component.basicore.util.Utils;
 
 import butterknife.Unbinder;
 
@@ -51,7 +53,9 @@ public class ActivityDelegate<P extends IPresenter> {
             AutoUtils.auto(((AppCompatActivity) mActivity));
             //设置不显示自带的title
         }
+
         mActivity.initData(savedInstanceState);
+
         return rootView;
     }
 

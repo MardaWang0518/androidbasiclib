@@ -7,20 +7,27 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hxh.component.basicore.CoreLib;
 import com.hxh.component.basicore.util.AppManager;
+import com.hxh.component.basicore.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 /**
  * 所有的Activity都会走这个接口！ 简化BaseActivity.. 一些逻辑，集中抽取到此类
- * 1. 后续再更新
+ * 1. 统一管理Activity
+ * 2. 增加u盟统计
+ * 3. 后续更新.....
  */
-public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks{
-   
+public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks {
+
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (activity instanceof AppCompatActivity) {
+            AppCompatActivity activity1 = ((AppCompatActivity) activity);
+            AppManager.addActivity(activity1);
+        }
+        if (CoreLib.getInstance().getAppComponent().globalActionBarProvider().isEnableImmeriveMode()) {
+            Utils.SystemUtil.enableImmersiveMode(activity);
+        }
 
-
-        if(activity instanceof  AppCompatActivity)AppManager.addActivity(((AppCompatActivity) activity));
 
     }
 
@@ -31,13 +38,13 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if(CoreLib.getInstance().isEnableUMengUser()) MobclickAgent.onResume(activity);
+        if (CoreLib.getInstance().isEnableUMengUser()) MobclickAgent.onResume(activity);
 
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        if(CoreLib.getInstance().isEnableUMengUser()) MobclickAgent.onPause(activity);
+        if (CoreLib.getInstance().isEnableUMengUser()) MobclickAgent.onPause(activity);
     }
 
     @Override
@@ -50,9 +57,10 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
     }
 
+
     @Override
     public void onActivityDestroyed(Activity activity) {
-        if(activity instanceof  AppCompatActivity)AppManager.removeActivity(((AppCompatActivity) activity));
-
+        if (activity instanceof AppCompatActivity)
+            AppManager.removeActivity(((AppCompatActivity) activity));
     }
 }

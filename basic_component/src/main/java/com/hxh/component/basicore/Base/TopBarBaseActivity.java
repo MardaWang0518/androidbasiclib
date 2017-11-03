@@ -39,6 +39,8 @@ public abstract class TopBarBaseActivity<P extends IPresenter> extends EmptyActi
 
 
 
+
+
     protected abstract ActionBarConfig setActionBarConfig();
 
 

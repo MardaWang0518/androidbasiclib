@@ -7,7 +7,7 @@
                  android:supportsRtl="true"
 >
 
-        <activity android:name=".utils.ocridcard.IDCardScanActivity"/>
+
 
     </application>
 

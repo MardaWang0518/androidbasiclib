@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Text Color-->
+    <color name="text_blue">#50a0f0</color>
+    <color name="split_main">#e5e5e5</color>
+    <color name="text_gray_9">#999999</color>
+    <color name="text_gray_3">#333333</color>
+    <color name="text_gray_6">#666666</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="text_black">#000100</color>
+    <color name="textnormalcolor">#333333</color>
+    <color name="normalcolor">#262626</color>
+    <!--Calendar样式-->
+    <color name="bg_clolor">#f9f9f9</color>
+    <color name="text_orange">#f95a45</color>
+    <color name="eeeee">#eeeeee</color>
+    <!--背景颜色-->
+    <color name="bg_ee">#eeeeee</color>
+    <color name="actionbar_onelevel_color">#5798F5</color>
+    <color name="actionbar_twolevel_color">#FFFFFF</color>
+    <!--日期选择器-->
+    <color name="mdtp_accent_color">#50a0f0</color>
+    <color name="mdtp_accent_color_dark">#50a0f0</color>
+
+    <color name="user_contract_bg">#6dadf0</color>
+
+
+    <color name="theme_primary">#EF6B51</color>
+    <color name="theme_primary_dark">#1976D2</color>
+    <color name="theme_primary_light">#BBDEFB</color>
+
+    <color name="theme_background">#FFFFFF</color>
+    <color name="theme_background_inverse">#212121</color>
+
+    <color name="theme_accent_1">#212121</color>
+
+    <color name="theme_primary_trans">#99212121</color>
+
+    <color name="theme_primary_text">#212121</color>
+    <color name="theme_secondary_text">#727272</color>
+    <color name="theme_primary_text_inverted">#ffffff</color>
+    <color name="theme_secondary_text_inverted">#8affffff</color>
+    <color name="theme_icons">#FFFFFF</color>
+    <color name="theme_divider">#B6B6B6</color>
+    <color name="separator_line">#ECECEC</color>
+    <color name="title">#222222</color>
+    <color name="subtitle">#999999</color>
+</resources>

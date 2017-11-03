@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Func0;
 
 /**
  * Created by hxh on 2017/7/25.
@@ -63,7 +64,12 @@ public class DataSource_SP<E> implements IDataSource {
 
     public Observable<List<E>> asObservable()
     {
-        return Observable.defer(() -> Observable.just(mDatas));
+        return Observable.defer(new Func0<Observable<List<E>>>() {
+            @Override
+            public Observable<List<E>> call() {
+                return Observable.just(mDatas);
+            }
+        });
     }
 
 }

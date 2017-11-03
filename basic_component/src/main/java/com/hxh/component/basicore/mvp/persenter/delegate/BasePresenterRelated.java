@@ -102,6 +102,11 @@ public class BasePresenterRelated implements  IPresenterRelated{
     public boolean isEmpty(TextView tv) {
         return Utils.Text.isEmpty(tv);
     }
+
+    @Override
+    public boolean isEmptyJson(String text) {
+        return Utils.Text.isEmptyJson(text);
+    }
     //endregion
 
     @Override

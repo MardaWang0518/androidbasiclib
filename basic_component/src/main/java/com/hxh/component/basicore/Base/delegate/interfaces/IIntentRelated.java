@@ -12,8 +12,9 @@ import java.io.Serializable;
  * Created by hxh on 2017/7/31.
  */
 public interface IIntentRelated<T> {
-
+    String ACTIVITYDEFAULTKEY ="activity";
     String FROM_OBJ_TAG = Config.FROM_OBJ_TAG;
+    String FROMTAG = "fromtag";
     String DEFAULTKEY =Config.FROM_DEFAULTKEY;
     int DEFAULT_ACTIVITY_REQUESTCODE = 0x1;
 

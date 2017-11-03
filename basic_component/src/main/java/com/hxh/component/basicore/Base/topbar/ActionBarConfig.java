@@ -4,11 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
 
-import com.hxh.component.basicore.R;
 import com.hxh.component.basicore.util.AppManager;
 
 /**
- * Created by hxh on 2017/5/4.
+ * ActionBar/toolbar 配置类
  */
 public class ActionBarConfig {
     private String titleText;

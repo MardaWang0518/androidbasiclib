@@ -110,19 +110,27 @@ public class ViewRelatedDelegate implements IViewRelated
     @Safe
     @Override
     public String getText(EditText et) {
-
+        if(Utils.Text.isEmpty(et.getText()))
+        {
+            return "";
+        }
         return et.getText().toString();
     }
 
     @Safe
     @Override
     public String getText(TextView tv) {
+        if(Utils.Text.isEmpty(tv.getText()))
+        {
+            return "";
+        }
         return tv.getText().toString();
     }
 
     @Safe
     @Override
-    public String getText(EditText et, String defaulttext) {
+    public String getText(EditText et, String defaulttext)
+    {
         return isEmpty(et.getText())?defaulttext:et.getText().toString();
     }
 
@@ -175,14 +183,16 @@ public class ViewRelatedDelegate implements IViewRelated
     @Safe
     @Override
     public void loadimg(ImageView iv, String url) {
-        if(url.contains("file://") || url.contains("sdcard"))
+        if(null != url )
         {
-            IImageFactory.getLoader().loadFile(iv,new File(url),IImageLoader.Options.defaultOptions());
-        }else
-        {
-            IImageFactory.getLoader().loadFormNet(iv,url,IImageLoader.Options.defaultOptions());
+            if(url.contains("file://") || url.contains("sdcard"))
+            {
+                IImageFactory.getLoader().loadFile(iv,new File(url),IImageLoader.Options.defaultOptions());
+            }else
+            {
+                IImageFactory.getLoader().loadFormNet(iv,url,IImageLoader.Options.defaultOptions());
+            }
         }
-
     }
 
     @Safe

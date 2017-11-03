@@ -28,6 +28,7 @@ public interface IPresenterRelated {
     boolean isEmpty(EditText text);
     boolean isEmpty(EditText text,String tipmsg);
     boolean isEmpty(TextView tv);
+    boolean isEmptyJson(String text);
     //endregion
 
     int getErrorCode();

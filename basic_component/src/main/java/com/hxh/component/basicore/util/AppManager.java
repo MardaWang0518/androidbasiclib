@@ -42,12 +42,15 @@ public class AppManager {
      */
     public static AppCompatActivity getCurrentActivity()
     {
+
         if(null != mActivitys)
         {
             return mActivitys.lastElement();
         }
         return null;
     }
+
+
 
 
     public static void removeActivity(AppCompatActivity activity)
@@ -108,12 +111,15 @@ public class AppManager {
     public static void back()
     {
         new Utils.ThreadPool(Utils.ThreadPool.SingleThread,0)
-        .execute(() -> {
-            try {
-                Instrumentation inst = new Instrumentation();
-                inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-            } catch (Exception e) {
-                System.out.println("Exception when onBack" + e.toString());
+        .execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Instrumentation inst = new Instrumentation();
+                    inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+                } catch (Exception e) {
+                    System.out.println("Exception when onBack" + e.toString());
+                }
             }
         });
     }

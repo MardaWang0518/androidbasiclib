@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">xiaoaiwidget</string>
 
+    <string name="mine_add_cards">添加银行卡</string>
+    <string name="mine_chikaren">持卡人</string>
+    <string name="mine_card_no">卡号</string>
+    <string name="mine_card_name">开户行</string>
+    <string name="mine_hint_cardname">请输入开户行</string>
+    <string name="mine_card_type">银行卡类型</string>
+    <string name="mine_hint_card_type">请获取银行卡类型</string>
+    <string name="mine_hint_card_num">请输入银行卡号</string>
+    <string name="mine_hint_card_name">请输入持卡人姓名</string>
+    <string name="mine_bind_users_card">请绑定持卡人本人的银行卡</string>
+    <string name="mine_send_again">没收到？重新发送</string>
+    <string name="mine_next_step">下一步</string>
+    <string name="mine_finish">完成</string>
+    <string name="mine_take_camera">拍照</string>
 </resources>

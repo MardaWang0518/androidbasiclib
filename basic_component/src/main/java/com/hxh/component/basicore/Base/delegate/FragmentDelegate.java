@@ -103,12 +103,20 @@ public class FragmentDelegate<P extends IPresenter>
     {
 
         rootView = null;
-        unbinder.unbind();
+        if(null != unbinder)
+        {
+            unbinder.unbind();
+        }
+
         if(null !=  getP())getP().DetachView();
         p = null;
         context = null;
-        mViews.clear();
-        mViews = null;
+        if(null != mViews)
+        {
+            mViews.clear();
+            mViews = null;
+        }
+
     }
 
     /**

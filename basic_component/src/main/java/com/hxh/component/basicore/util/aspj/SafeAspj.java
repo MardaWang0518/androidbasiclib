@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 
 public class SafeAspj {
-    private static final String method_piex = "execution(@routerlib.hxh.com.corelib_annotation1.annotation.Safe * *(..))";
+    private static final String method_piex = "execution(@com.hxh.component.basicannotation.annotation.Safe * *(..))";
     private static final String filed_piex = "";
 
    // @Pointcut(method_piex)

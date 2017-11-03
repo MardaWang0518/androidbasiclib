@@ -98,6 +98,12 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V>,IP
     public boolean isEmpty(TextView tv) {
         return mDelegate.isEmpty(tv);
     }
+
+    @Override
+    public boolean isEmptyJson(String text) {
+        return mDelegate.isEmptyJson(text);
+    }
+
     //endregion
 
     //region APiError
@@ -125,6 +131,8 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V>,IP
     public IApiError getApiError(Throwable e) {
         return mDelegate.getApiError(e);
     }
+
+
 
     //endregion
 }

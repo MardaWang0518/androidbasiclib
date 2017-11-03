@@ -1,6 +1,7 @@
 package com.hxh.component.basicore.util;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentUris;
@@ -38,6 +39,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -135,6 +137,63 @@ public class Utils {
         }
     }
 
+    public static class SystemUtil
+    {
+        /**
+         * 开启沉浸式模式(竖屏)
+         * @param activity
+         */
+        public static void enableImmersiveMode(AppCompatActivity activity)
+        {
+            if (Build.VERSION.SDK_INT >= 21) {
+                View decorView = activity.getWindow().getDecorView();
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+                activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
+                activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            }
+        }
+
+
+        /**
+         * 开启沉浸式模式(竖屏)
+         * @param activity
+         */
+        public static void enableImmersiveMode(Activity activity)
+        {
+            if (Build.VERSION.SDK_INT >= 21) {
+                View decorView = activity.getWindow().getDecorView();
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+                activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
+                activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            }
+        }
+        /**
+         * 开启沉浸式模式(横屏)
+         * 1. 关联着Activity的 onWindowFocusChanged() 方法
+         * 2. 需要你将屏幕的方式改为横向
+         * @param hasFocus
+         * @param activity
+         */
+        public static void enableImmersiveMode_Hori(boolean hasFocus,AppCompatActivity activity)
+        {
+            if (hasFocus && Build.VERSION.SDK_INT >= 19) {
+                View decorView = activity.getWindow().getDecorView();
+                decorView.setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
+        }
+    }
 
 
 
@@ -638,9 +697,35 @@ public class Utils {
     }
 
     public static class Text {
+        public static boolean isEmptyJson(java.lang.String str) {
+            if (null == str ) {
+                return true;
+            }
+
+            if(str.length()>=2) {
+                String one = str.substring(0, 1);
+                String two = str.substring(1, 2);
+                if (one.equals("{") && two.equals("}")) {
+
+                    return true;
+                } else if(one.equals("[") && two.equals("]"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static boolean isEmpty(java.lang.String str) {
             if (null == str || "".equals(str)) {
                 return true;
+            }
+
+            if(str.length()>=2)
+            {
+                String one = str.substring(0,1);
+                String two = str.substring(1,2);
+
             }
             return false;
         }
@@ -707,7 +792,7 @@ public class Utils {
 
         public static boolean isEmpty(TextView tv) {
             if (null != tv && tv.getText().toString().trim().contains("请选择")) {
-                Toast.toast("请选择");
+                Toast.toast(tv.getText().toString());
                 return true;
             }
             return false;
@@ -1436,6 +1521,12 @@ public class Utils {
 
         }
 
+        /**
+         * 时间错转日期
+         * @param seconds
+         * @param format
+         * @return
+         */
         public static String timeStamp2Date(String seconds,String format) {
             if(seconds == null || seconds.isEmpty() || seconds.equals("null")){
                 return "";

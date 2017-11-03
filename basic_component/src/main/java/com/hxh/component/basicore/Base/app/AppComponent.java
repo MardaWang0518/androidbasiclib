@@ -9,10 +9,9 @@ import com.hxh.component.basicore.net.NetProvider;
 import com.hxh.component.basicore.net.RequestCallBackHandler;
 
 /**
-*@Title 集合所有组件,你可以从这个接口中得到这个基础库中的所有组件（在Applicaiton里面公开获取此对象的方法）
-*@param
-*@Time 15:04
-*/
+ * 集合所有组件,你可以从这个接口中得到这个基础库中的所有组件（在Applicaiton里面公开获取此对象的方法）
+ *
+ */
 public interface AppComponent {
 
     /**
@@ -47,6 +46,9 @@ public interface AppComponent {
      */
     BugManager globalBugManager();
 
-
+    /**
+     * 全局的ActionBar配置
+     * @return
+     */
     ActionBarProvider globalActionBarProvider();
 }

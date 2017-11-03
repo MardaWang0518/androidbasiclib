@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hxh.component.basicore.Base.onRecyItemClick;
+
 
 /**
- * Created by hxh on 2017/4/6.
+ * Adaoter基类（不支持多布局）
+ * @param <T>   ItemBean的类型
+ * @param <H>   Item的Holder
  */
 public abstract class BaseRecyAdapter<T,H extends RecyclerView.ViewHolder> extends AbsRecycleAdapter<T,H> {
     /**
@@ -20,7 +24,10 @@ public abstract class BaseRecyAdapter<T,H extends RecyclerView.ViewHolder> exten
         super(context);
     }
 
-
+    public BaseRecyAdapter(Context context,onRecyItemClick<T, H> mItemClickCallBack) {
+        super(context,mItemClickCallBack);
+        setmItemClickCallBack(mItemClickCallBack);
+    }
 
     @Override
     public H onCreateViewHolder(ViewGroup parent, int viewType) {

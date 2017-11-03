@@ -1,9 +1,11 @@
 package com.hxh.component.basicore.Base;
 
 /**
- * Created by hxh on 2017/4/7.
+ * Recycleview Item点击事件
+ * @param <T>
+ * @param <H>
  */
-public abstract class onRecyItemClick<T,H> {
+public  interface onRecyItemClick<T,H> {
     /**
      *
      * @param position   当前位置
@@ -11,7 +13,7 @@ public abstract class onRecyItemClick<T,H> {
      * @param data       当前数据
      * @param holder     当前holder
      */
-   public abstract void onClick(int position,int tag,T data,H holder);
+   public void onClick(int position,int tag,T data,H holder);
 
 
 }

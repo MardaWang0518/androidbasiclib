@@ -17,7 +17,7 @@ import com.hxh.component.business.common.greendao.UserInfoBeanDao;
 import com.hxh.component.business.utils.Constant;
 
 /**
- * Created by hxh on 2017/7/8.
+ * 配置UserDto
  */
 public class UserInfoDTO {
 
@@ -74,8 +74,9 @@ public class UserInfoDTO {
         CoreLib.getInstance().configDynamicHttpUrls(generateBaseUrlMap());
     }
 
-    //region 多Base Url配置
 
+
+    //region 多Base Url配置
     private ArrayMap<String,String> generateBaseUrlMap()
     {
         if(null == urls)

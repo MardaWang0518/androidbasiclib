@@ -7,32 +7,31 @@ import android.graphics.Color;
 import android.os.Environment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alibaba.android.arouter.utils.TextUtils;
 import com.facebook.stetho.Stetho;
 import com.hxh.component.basicore.Base.app.AppDelegate;
 import com.hxh.component.basicore.Base.topbar.ActionBarProvider;
-import com.hxh.component.basicore.rx.RxUtils;
 import com.hxh.component.basicore.util.AppManager;
 import com.hxh.component.basicore.util.BugManager;
 import com.hxh.component.basicore.util.aspj.util.AspjManager;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.tencent.smtt.sdk.QbSdk;
-
-import java.io.File;
-
-import me.yokeyword.fragmentation.Fragmentation;
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import com.hxh.component.business.BuildConfig;
 import com.hxh.component.business.R;
-import com.hxh.component.business.arouter.config.ModuleOptions;
-import com.hxh.component.business.arouter.router.ModuleManager;
 import com.hxh.component.business.common.UserInfoDTO;
 import com.hxh.component.business.common.greendao.DaoMaster;
 import com.hxh.component.business.common.greendao.DaoSession;
 import com.hxh.component.business.utils.Constant;
 import com.hxh.component.business.utils.oss.api.OSSUtil;
 import com.hxh.component.business.utils.oss.request.Request_GetOssInfo;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.smtt.sdk.QbSdk;
+
+import java.io.File;
+import java.util.HashMap;
+
+import me.yokeyword.fragmentation.Fragmentation;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 
 /**
@@ -55,18 +54,19 @@ public class AppInitDelegate {
     private UserInfoDTO mUserDTO;
     private DaoSession mDaoSession;
     private BugManager mBugManager;
-
+    private HashMap<String,String> mSaveData; //SaveData可以看做一个小型数据存储库
 
     public void init()
     {
 
         // Utils.init(mApplication);
+        mSaveData = new HashMap<>(1);
         getAppCacheDir();
         getAppImgCacheDir();
         initGreenDao();
         mUserDTO = new UserInfoDTO(mDaoSession);
         if (mUserDTO.getUser() != null) {
-            initOss(); //不用初始化OSs，因为HRO中OSS初始化分功能，不确定那个使用
+            initOss(); //不用初始化OSs
         }else
         {
             mUserDTO.setUser(null);
@@ -76,19 +76,16 @@ public class AppInitDelegate {
         initArouter();
         initSharpe();
         initAspj();
-        initStetho();
-
         initFragmention();
         initActionBarProvider();
     }
 
     private void initFragmention()
     {
-
-//        Fragmentation.builder()
-//                .stackViewMode(Fragmentation.BUBBLE)
-//                .debug(BuildConfig.DEBUG)
-//                .install();
+        Fragmentation.builder()
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(BuildConfig.DEBUG)
+                .install();
     }
 
     private void initGreenDao() {
@@ -147,6 +144,7 @@ public class AppInitDelegate {
      * 请使用 OssUtil里面的初始化方法
      */
     public void initOss() {
+        //以下是示例，可以自行更改
         if (!ossIsInitd || null == OSSUtil.mDefaultinitOSSResponse) {
             ossIsInitd = true;
             OSSUtil
@@ -179,6 +177,8 @@ public class AppInitDelegate {
             }
         };
         mBugManager.init();
+
+        appDelegate.registerBugManager(mBugManager);
     }
 
 
@@ -213,13 +213,6 @@ public class AppInitDelegate {
             //
         }
         ARouter.init(mApplication);
-        ModuleOptions.ModuleBuilder builder = new ModuleOptions.ModuleBuilder(mApplication)
-                //添加工作模块
-
-                //添加我的模块
-                ;
-        ModuleManager.getInstance().init(builder.build());
-
     }
 
     private void initActionBarProvider()
@@ -232,20 +225,17 @@ public class AppInitDelegate {
                         return BitmapFactory.decodeResource(mApplication.getResources(),resid);
                     }
                 })
-                .compose(RxUtils.<Bitmap>io_main())
                 .subscribe(new Action1<Bitmap>() {
                     @Override
                     public void call(Bitmap bitmap) {
                         appDelegate.registerActionBarProvider(new ActionBarProvider.Builder()
                                 .backColor(Color.parseColor("#ffffff"))
                                 .backImg(bitmap)
+                                .enableImmeriveMode()
                                 .build());
                     }
                 });
     }
-
-
-
 
     private void initAspj()
     {
@@ -258,6 +248,16 @@ public class AppInitDelegate {
 
     //endregion
 
+    public void saveData(String key,String value)
+    {
+        if(mSaveData.containsKey(key))mSaveData.remove(key);
+        mSaveData.put(key,value);
+    }
 
+    public String getData(String key)
+    {
+
+        return     TextUtils.isEmpty(mSaveData.get(key))?"":mSaveData.get(key);
+    }
 
 }

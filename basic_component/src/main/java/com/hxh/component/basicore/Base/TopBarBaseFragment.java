@@ -22,7 +22,7 @@ import com.hxh.component.basicore.mvp.view.IView;
 import com.hxh.component.basicore.mvp.persenter.IPresenter;
 
 /**
- * 对外提供各种操作方法，内部统一交由对应的Delegate实现
+ *
  */
 public abstract class TopBarBaseFragment<P extends IPresenter>
         extends EmptyFragment

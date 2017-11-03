@@ -70,7 +70,7 @@ public abstract class BaseBottomSheetFragment extends BottomSheetDialogFragment 
         }
         resetView();
         //设置View重新关联
-        int height = getPeekHeight();//屏幕高的75%
+        final int height = getPeekHeight();//屏幕高的75%
         if(0 == height)
         {
             ViewGroup.LayoutParams layoutParams =

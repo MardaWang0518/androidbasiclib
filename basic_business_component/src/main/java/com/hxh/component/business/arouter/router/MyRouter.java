@@ -2,20 +2,15 @@ package com.hxh.component.business.arouter.router;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 
-import com.hxh.component.business.arouter.config.MyBundle;
-
-
 /**
- * 作者：黎伟杰-子然 on 2017/4/16.
- * 邮箱：liweijie@linghit.com
- * description：
- * update by:
- * update day:
+ * 对ARouter进行的封装
+ * Postcard 封装着一个跳转所需要的数据
  */
 public class MyRouter {
 
@@ -36,10 +31,10 @@ public class MyRouter {
     }
 
 
-    public MyRouter withBundle(MyBundle bundle) {
+    public MyRouter withBundle(Bundle bundle) {
         if (bundle == null) return this;
         checkPostcard();
-        postcard.with(bundle.build());
+        postcard.with(bundle);
         return this;
     }
 

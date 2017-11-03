@@ -50,7 +50,7 @@ public class StretchyTextView extends LinearLayout implements View.OnClickListen
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.strechytext, defStyleAttr, 0);
 
-        maxLineCount = a.getInteger(R.styleable.strechytext_maxLine,2);
+        maxLineCount = a.getInteger(R.styleable.strechytext_maxLine,1);
         a.recycle();
 
         shrinkup = context.getString(R.string.retract);
@@ -123,6 +123,17 @@ public class StretchyTextView extends LinearLayout implements View.OnClickListen
     public void setContentTextSize(float size){
         this.contentText.setTextSize(size);
     }
+
+    public void setShrinkupContent(String content)
+    {
+
+    }
+
+    public void setSpreadContent(String content)
+    {
+
+    }
+
     /**
      * 内容字体加粗
      */

@@ -321,6 +321,7 @@ public class BaseAPI {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(provider.getConfigConnectTimeOut(), TimeUnit.SECONDS)
                 .readTimeout(provider.getConfigReadTimeOut(),  TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
                 ;
 
         //看看是否配置有cookie

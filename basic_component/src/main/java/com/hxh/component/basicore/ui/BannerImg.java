@@ -121,12 +121,16 @@ public class BannerImg extends FrameLayout {
     }
 
     public void setImageUris(List<String> imageuris) {
+        setImageUris(imageuris, ImageView.ScaleType.CENTER_INSIDE);
+    }
+
+    public void setImageUris(List<String> imageuris,ImageView.ScaleType scaleType) {
         for (int i = 0; i < imageuris.size(); i++) {
             imageUris.add(imageuris.get(i));
         }
         for (int i = 0; i < imageUris.size(); i++) {
             ImageView imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);//铺满屏幕
+            imageView.setScaleType(scaleType);//铺满屏幕
             imageViewsList.add(imageView);
             IImageFactory.getLoader().loadFormNet(imageView,imageuris.get(i),mOptions);
 
@@ -141,10 +145,13 @@ public class BannerImg extends FrameLayout {
             }
             dotViewsList.add(viewDot);
             mLinearLayout.addView(viewDot);
-            imageView.setOnClickListener(v->{
-                if(null != mOnlistener)
-                {
-                    mOnlistener.onClick(currentItem);
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(null != mOnlistener)
+                    {
+                        mOnlistener.onClick(currentItem);
+                    }
                 }
             });
         }
@@ -152,6 +159,12 @@ public class BannerImg extends FrameLayout {
         mViewPager.setAdapter(new MyPagerAdapter());
         mViewPager.setOnPageChangeListener(new MyPageChangeListener());
 
+    }
+
+
+    public void setImageUris(String imageuris) {
+        imageUris.add(imageuris);
+        setImageUris(imageUris);
     }
 
     public void setImageUris_Resource(List<Integer> imageuris) {
@@ -179,10 +192,13 @@ public class BannerImg extends FrameLayout {
             dotViewsList.add(viewDot);
 
             mLinearLayout.addView(viewDot);
-            imageView.setOnClickListener(v->{
-                if(null != mOnlistener)
-                {
-                    mOnlistener.onClick(currentItem);
+            imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(null != mOnlistener)
+                    {
+                        mOnlistener.onClick(currentItem);
+                    }
                 }
             });
         }
@@ -191,6 +207,13 @@ public class BannerImg extends FrameLayout {
         mViewPager.setOnPageChangeListener(new MyPageChangeListener());
 
     }
+
+
+    public void setImageUris_Resource(Integer img) {
+        imageUris_int.add(img);
+        setImageUris_Resource(imageUris_int);
+    }
+
 
 
     public void setOnClickListener(OnImageClickListener lis)

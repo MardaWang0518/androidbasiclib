@@ -3,9 +3,10 @@ package com.hxh.component.business.arouter.provider.base;
 import android.support.design.widget.BottomSheetDialogFragment;
 
 /**
- * Created by hxh on 2017/5/12.
+ * 适用于 BottomSheetFragment
+ * @param <T>
  */
-public interface IBottomSheetFragmentProvider extends IBaseProvider{
+public interface IBottomSheetFragmentProvider<T> extends IBaseProvider{
 
-    BottomSheetDialogFragment newInstance(Object... args);
+    BottomSheetDialogFragment newInstance(T... args);
 }

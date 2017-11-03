@@ -7,9 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * 创建者：hxh
- * 时间：  2017/8/23
- * 描述：
+ * 可变速度的LinerLayoutManger
  */
 public class SpeedLinearLayoutManager extends LinearLayoutManager {
     private double speedRatio;
