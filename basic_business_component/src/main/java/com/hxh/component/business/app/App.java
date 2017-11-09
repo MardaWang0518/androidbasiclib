@@ -37,18 +37,14 @@ public class App extends Application implements IApp {
 
     @Override
     public void onCreate() {
-
         super.onCreate();
         mContext = this;
-        Utils.syncIsDebug(this);
 
         mAppDelegate = new AppDelegate();
         mAppDelegate.onCreate(this, initCoreLib());
 
         mAppInitDelegate = new AppInitDelegate(mAppDelegate, this);
         mAppInitDelegate.init();
-
-
 
     }
 

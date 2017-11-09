@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/basic_component/basic_component.iml" filepath="$PROJECT_DIR$/basic_component/basic_component.iml" />
       <module fileurl="file://$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" filepath="$PROJECT_DIR$/basic_component_annotation1/basic_component_annotation1.iml" />
       <module fileurl="file://$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" filepath="$PROJECT_DIR$/basic_component_compile/basic_component_compile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/buildsrc/buildsrc.iml" filepath="$PROJECT_DIR$/buildsrc/buildsrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/emptymodule/emptymodule.iml" filepath="$PROJECT_DIR$/emptymodule/emptymodule.iml" />
     </modules>
   </component>

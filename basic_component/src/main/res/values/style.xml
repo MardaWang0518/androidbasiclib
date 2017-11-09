@@ -52,13 +52,6 @@
 </style>
 
 
-    <style name="SwitchButtonStyleMD" parent="SwitchButtonMD">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-    </style>
-
 
     <style name="Transparent_activity_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/transparent</item>

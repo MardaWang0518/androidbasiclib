@@ -13,7 +13,10 @@ import com.hxh.component.basicore.net.NetProvider;
 import com.hxh.component.basicore.net.RequestCallBackHandler;
 
 /**
- * Application 委托类
+ * 标题: Application 委托类
+ * 作者: hxh
+ * 日期: 2017/11/7 19:03
+ * 描述:
  */
 public class AppDelegate  implements IApp{
 
@@ -67,6 +70,8 @@ public class AppDelegate  implements IApp{
         this.mApplication.registerActivityLifecycleCallbacks(this.mActivityLifecycle);
 
     }
+
+
 
     public void onStop()
     {

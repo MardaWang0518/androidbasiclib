@@ -8,11 +8,12 @@ import android.os.Environment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.android.arouter.utils.TextUtils;
-import com.facebook.stetho.Stetho;
+
 import com.hxh.component.basicore.Base.app.AppDelegate;
 import com.hxh.component.basicore.Base.topbar.ActionBarProvider;
 import com.hxh.component.basicore.util.AppManager;
 import com.hxh.component.basicore.util.BugManager;
+import com.hxh.component.basicore.util.Utils;
 import com.hxh.component.basicore.util.aspj.util.AspjManager;
 import com.hxh.component.business.BuildConfig;
 import com.hxh.component.business.R;
@@ -38,31 +39,30 @@ import rx.functions.Func1;
  * Created by hxh on 2017/7/8.
  * 此类负责app的相关组件初始化工作
  */
-public class AppInitDelegate {
+public class AppInitDelegate extends com.hxh.component.basicore.Base.app.AppInitDelegate{
 
-    public AppInitDelegate(AppDelegate appDelegate, Application app)
-    {
-        this.appDelegate = appDelegate;
+    public AppInitDelegate(AppDelegate appDelegate, Application app) {
+        super(appDelegate, app);
         this.mApplication = app;
     }
 
-    private AppDelegate appDelegate;
+    @Override
+    public BugManager A_initBugManager() {
+        return initBugManager();
+    }
+
+    @Override
+    public BugManager getBugManager() {
+        return super.getBugManager();
+    }
+
     private Application mApplication;
-    private String mDatasDir;
-    private String mImagesDir;
     private  boolean ossIsInitd = false;
     private UserInfoDTO mUserDTO;
     private DaoSession mDaoSession;
-    private BugManager mBugManager;
-    private HashMap<String,String> mSaveData; //SaveData可以看做一个小型数据存储库
 
     public void init()
     {
-
-        // Utils.init(mApplication);
-        mSaveData = new HashMap<>(1);
-        getAppCacheDir();
-        getAppImgCacheDir();
         initGreenDao();
         mUserDTO = new UserInfoDTO(mDaoSession);
         if (mUserDTO.getUser() != null) {
@@ -73,20 +73,8 @@ public class AppInitDelegate {
         }
         initBugManager();
         initX5();
-        initArouter();
-        initSharpe();
-        initAspj();
-        initFragmention();
-        initActionBarProvider();
     }
 
-    private void initFragmention()
-    {
-        Fragmentation.builder()
-                .stackViewMode(Fragmentation.BUBBLE)
-                .debug(BuildConfig.DEBUG)
-                .install();
-    }
 
     private void initGreenDao() {
         // Application 中执行
@@ -97,48 +85,11 @@ public class AppInitDelegate {
 
     }
 
-    //region FileCache
-    public String getAppCacheDir() {
-        if (null == mDatasDir) {
-            mDatasDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "xakj";
-            File file = new File(mDatasDir);
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-
-        }
-        return mDatasDir;
-    }
-
-
-    public String getAppImgCacheDir() {
-        if (null == mImagesDir) {
-            mImagesDir = getAppCacheDir() + File.separator + "img";
-            File file = new File(mImagesDir);
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-
-        }
-        return mImagesDir;
-    }
-    //endregion
-
-    public BugManager getBugManager()
-    {
-        return mBugManager;
-    }
-
     public UserInfoDTO getUserDTO() {
         return null==mUserDTO?mUserDTO=new UserInfoDTO(mDaoSession):mUserDTO;
     }
 
-    //region init方法
 
-    private void initStetho()
-    {
-        Stetho.initializeWithDefaults(mApplication);
-    }
 
     /**
      * 请使用 OssUtil里面的初始化方法
@@ -152,8 +103,8 @@ public class AppInitDelegate {
         }
     }
 
-    private void initBugManager() {
-        mBugManager = new BugManager() {
+    private BugManager initBugManager() {
+        return new BugManager() {
             @Override
             public void postBug(Exception e) {
                 CrashReport.postCatchedException(e);
@@ -176,15 +127,9 @@ public class AppInitDelegate {
                 CrashReport.initCrashReport(mApplication, "ff0fa2e23e", false);
             }
         };
-        mBugManager.init();
-
-        appDelegate.registerBugManager(mBugManager);
-    }
-
-
-    private void initSharpe() {
 
     }
+
 
 
     private void initX5() {
@@ -202,62 +147,12 @@ public class AppInitDelegate {
         QbSdk.initX5Environment(mApplication, cb);
     }
 
-    /**
-     * 初始化Arouter
-     */
-    private void initArouter() {
-        if (BuildConfig.DEBUG)
-        {
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-            //
-        }
-        ARouter.init(mApplication);
-    }
 
-    private void initActionBarProvider()
-    {
-        Observable
-                .just(R.mipmap.icon_back_white)
-                .map(new Func1<Integer, Bitmap>() {
-                    @Override
-                    public Bitmap call(Integer resid) {
-                        return BitmapFactory.decodeResource(mApplication.getResources(),resid);
-                    }
-                })
-                .subscribe(new Action1<Bitmap>() {
-                    @Override
-                    public void call(Bitmap bitmap) {
-                        appDelegate.registerActionBarProvider(new ActionBarProvider.Builder()
-                                .backColor(Color.parseColor("#ffffff"))
-                                .backImg(bitmap)
-                                .enableImmeriveMode()
-                                .build());
-                    }
-                });
-    }
-
-    private void initAspj()
-    {
-        AspjManager.CheckLoginManager.getInstance().registerLoginView(Constant.RouterPath_DefalutLoginView, AspjManager.CheckLoginManager.MODE_ACTIVTY);
-    }
 
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
 
-    //endregion
 
-    public void saveData(String key,String value)
-    {
-        if(mSaveData.containsKey(key))mSaveData.remove(key);
-        mSaveData.put(key,value);
-    }
-
-    public String getData(String key)
-    {
-
-        return     TextUtils.isEmpty(mSaveData.get(key))?"":mSaveData.get(key);
-    }
 
 }

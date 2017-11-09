@@ -59,7 +59,15 @@ public class AppManager {
         return null;
     }
 
+    public static AppCompatActivity getCurrentCompatActivity()
+    {
 
+        if(null != mActivitys)
+        {
+            return ((AppCompatActivity) mActivitys.lastElement());
+        }
+        return null;
+    }
 
 
     public static void removeActivity(AppCompatActivity activity)

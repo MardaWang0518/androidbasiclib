@@ -20,7 +20,7 @@ import com.hxh.component.basicore.util.Utils;
  *
  * NetProvider       主要是网络相关的东西
  * AppComponent      从这里面你能得到大部分所使用的组件
- * Utils             包含了绝大部分的工具类
+ * Utils             工具类
  * TopBarXXXActivity/Fragment   提供了一个简易版TopBar的Activyt或者Fragment，通过ActionBarConfig 配置
  * BaseRecyAdapter            提供了RecycleView的Adapter
  *
@@ -67,7 +67,8 @@ public class CoreLib {
     public CoreLib init()
     {
         Utils.init(mApplication);
-        Log.init(isLogEnable,isLogWriteEnable,mLogTag);
+        Utils.syncIsDebug(mApplication);
+        Log.init(  Utils.isDebug(),Utils.isDebug(),mLogTag);
         if(null != mNetProvider)
         {
             BaseAPI.getInstance().register(mNetProvider);
@@ -129,9 +130,6 @@ public class CoreLib {
 
         public CoreLib build() {
             CoreLib core = CoreLib.getInstance();
-
-            core.setLogEnable(Utils.isDebug());
-            core.setLogWriteEnable(Utils.isDebug());
             core.setNetProvider(mNetProvider);
             core.setLogTag(logtag);
             core.setAppcontext(appContext);

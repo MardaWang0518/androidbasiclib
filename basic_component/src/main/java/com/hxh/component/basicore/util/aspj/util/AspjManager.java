@@ -106,7 +106,7 @@ public class AspjManager {
                         if(null != ins)
                         {
 
-                            ins.show(AppManager.getCurrentActivity().getSupportFragmentManager(),"");
+                            ins.show(AppManager.getCurrentCompatActivity().getSupportFragmentManager(),"");
                             if(null != mOnDissmissListener)
                             {
                                 ins.getDialog().setOnDismissListener(mOnDissmissListener);
@@ -114,7 +114,7 @@ public class AspjManager {
                         }else
                         {
                             Fragment fragment  = obj instanceof Fragment ? ((Fragment) obj) : null;
-                            FragmentTransaction tr = AppManager.getCurrentActivity().getSupportFragmentManager().beginTransaction();
+                            FragmentTransaction tr = AppManager.getCurrentCompatActivity().getSupportFragmentManager().beginTransaction();
                             tr.add(fragment,"");
                             tr.commit();
                             //AspjUtils.App.getCurrentActivit().getFragmentManager

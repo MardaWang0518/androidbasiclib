@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 
+import com.hxh.component.basicore.util.Utils;
+
 /**
  * Created by hxh on 2017/4/21.
  */
@@ -13,7 +15,10 @@ public class PermissionsChecker {
     {
         this.context = context;
     }
-
+    public PermissionsChecker()
+    {
+        this.context = Utils.getApplicationContext();
+    }
     public boolean checkPermissions(String... pers)
     {
         for (String item : pers) {

@@ -62,7 +62,7 @@ public class UserInfoDTO {
                     .where(UserInfoBeanDao.Properties.User_str.eq(Singleton.defaultGson().toJson(bean.getUser())))
                     .buildDelete()
                     .executeDeleteWithoutDetachingEntities();
-            //  Log.d("--->用户数" + mUserDao.queryBuilder().list().size());
+
             mUserDao.save(bean);
 
             mCurrentToken = "";

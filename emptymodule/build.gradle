@@ -11,7 +11,7 @@ apply plugin: 'android-aspectjx'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
-    publishNonDefault true
+
 
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -50,10 +50,9 @@ android {
 
 
 dependencies {
-    releaseCompile  project(path:':basic_business_component',configuration:'release')
-    debugCompile   project(path:':basic_business_component',configuration:'debug')
+    compile  project(':basic_business_component')
 
     //引入Arouter编译器
-    annotationProcessor rootProject.ext.requiredDependencies["butterknife-compiler"]
-    annotationProcessor project(':basic_component_compile')
+    annotationProcessor rootProject.ext.annotationCompiler["arouter-compiler"]
+    annotationProcessor project(rootProject.ext.annotationCompiler["apifactory-compile"])
 }

@@ -56,31 +56,38 @@ android {
     dexOptions {
         incremental true
     }
- 
+
 
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
-
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}
 
 dependencies {
-    compile 'org.aspectj:aspectjrt:1.8.10'
+
+
 
     //arouter
-    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2'
+    annotationProcessor rootProject.ext.annotationCompiler["arouter-compiler"]
     //butterknife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor rootProject.ext.annotationCompiler["butterknife-compiler"]
 
     //pagebottomtab
     compile rootProject.ext.dependencies["pager_bottom_tab_strip"]
 
     if (isRealse.toBoolean()) {
-        releaseCompile  project(path:':emptymodule',configuration:'release')
-        debugCompile   project(path:':emptymodule',configuration:'debug')
-
+        compile  project(':emptymodule')
     } else {
-        releaseCompile  project(path:':basic_business_component',configuration:'release')
-        debugCompile   project(path:':basic_business_component',configuration:'debug')
+        compile  project(':basic_business_component')
     }
 
 

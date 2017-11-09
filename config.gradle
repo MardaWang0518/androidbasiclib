@@ -33,21 +33,36 @@ ext {
             fragmention         : "1.0.8",
             fragmenton_swipeback: "1.0.8",
             jodatimeVersion     : "2.9.3",
-            sublimepickerlibrary: "2.1.1",
+
             gsonVersion         : "2.8.0",
             multidexVersion     : "1.0.1",
             bugly_sdkVersion    : "2.6.0",
             bugly_ndkVersion    : "3.2.0",
-            pager_tab_strip     : '2.1.0',
-            pagerslidingtabstrip: '1.0.1',
-            citypicker          : '0.9.0',
+
             fastjson            : '1.2.21',
-            pdf_viewer          : '2.6.0',
-            //展示图片
-            photoView           : '1.3.0',
+
             okhttputils         : '2.6.2',
             arouter             : '1.2.1',
-            constraintlayout    : '1.0.2'
+            arouter_compiler    : '1.1.2',
+            constraintlayout    : '1.0.2',
+            androidPicer_WheelPicker:'1.5.5',
+            pdf_viewer          : '2.6.0',
+
+            photoView           : '1.3.0',  //展示图片
+            pager_tab_strip     : '2.1.0', //导航栏
+            pagerslidingtabstrip: '1.0.1',//导航栏
+            citypicker          : '0.9.0',//地址选择器
+            sublimepickerlibrary: "2.1.1",
+            aspectjtools : "1.8.10",
+            aspectjjrt :"1.8.10",
+
+    ]
+
+
+    annotationCompiler= [
+            "butterknife-compiler"  : "com.jakewharton:butterknife-compiler:${android["butterknife"]}",
+            "arouter-compiler":"com.alibaba:arouter-compiler:${android["arouter_compiler"]}",
+            "apifactory-compile":":basic_component_compile"
     ]
 
     //库需要的依赖
@@ -79,7 +94,7 @@ ext {
             "autoLayout"            : "com.zhy:autolayout:${android["autoLayout"]}",
             //注解
             "butterknife"           : "com.jakewharton:butterknife:${android["butterknife"]}",
-            "butterknife-compiler"  : "com.jakewharton:butterknife-compiler:${android["butterknife"]}",
+
             //fragmetion
             "fragmention"           : "me.yokeyword:fragmentation:${android["fragmention"]}",
             "fragmenton_swipeback"  : "me.yokeyword:fragmentation-swipeback:${android["fragmenton_swipeback"]}",
@@ -88,7 +103,11 @@ ext {
             "gson"                  : "com.google.code.gson:gson:${android["gsonVersion"]}",
             "fastjson"              : "com.alibaba:fastjson:${android["fastjson"]}",
             "pdf_viewer"            : "com.github.barteksc:android-pdf-viewer:${android["pdf_viewer"]}",
-            "photoView"             : "com.github.chrisbanes:PhotoView:${android["photoView"]}"
+            "photoView"             : "com.github.chrisbanes:PhotoView:${android["photoView"]}",
+            "androidPicer_WheelPicker": "com.github.gzu-liyujiang.AndroidPicker:WheelPicker:${android["androidPicer_WheelPicker"]}",
+            "aspectjrt" :"org.aspectj:aspectjrt:${android["aspectjjrt"]}",
+
+            "xrecycleview"          : "com.jcodecraeer:xrecyclerview:${android["xrecycleview"]}"
     ]
 
     dependencies = [
@@ -104,7 +123,7 @@ ext {
 
             "utils"                 : "com.blankj:utilcode:${android["utils"]}",
 
-            "xrecycleview"          : "com.jcodecraeer:xrecyclerview:${android["xrecycleview"]}",
+
 
             "navigationtabstrip"    : "com.github.devlight.navigationtabstrip:navigationtabstrip:${android["navigationtabstrip"]}",
 

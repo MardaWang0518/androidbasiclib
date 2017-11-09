@@ -1,5 +1,7 @@
 package com.hxh.component.business.utils;
 
+import com.hxh.component.basicore.Config;
+
 /**
  * Created by hxh on 2017/5/4.
  */
@@ -9,7 +11,7 @@ public class Constant {
     public static final String SP_ISFIRST_TAG ="isfristenter";
     public static final String LOGTAG = "xiaoaikeji";
 
-    public static final String RouterPath_DefalutLoginView = "/user/main/login1";
+    public static final String RouterPath_DefalutLoginView = Config.RouterPath_DefalutLoginView;
 
     public static class OSSId
     {

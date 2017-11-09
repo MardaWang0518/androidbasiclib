@@ -5,6 +5,7 @@ import android.util.Log;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.hxh.component.basicore.CoreLib;
 import com.hxh.component.basicore.permissions.PermissionActivityActivity;
+import com.hxh.component.basicore.permissions.PermissionsChecker;
 import com.hxh.component.basicore.util.AppManager;
 import com.hxh.component.basicore.util.Utils;
 
@@ -49,22 +50,29 @@ public class PermissionCheckAspj {
     public Object around(final ProceedingJoinPoint joinPoint, final PermissionCheck ann) throws Throwable {
         com.hxh.component.basicore.util.Log.d("权限Aspj切入");
 
-
         if (ann.permissions() == null || ann.permissions().length == 0) {
-           // throw new IllegalStateException("permissions can't null");
+            // throw new IllegalStateException("permissions can't null");
         } else {
-            String tipmsg = ann.tipMsgBeforeRequest();
-            Utils.DialogUtils.showDefaulStyleDialog(
-                    Utils.Text.isEmpty(tipmsg) ? "接下来\n我们会进行权限请求\n请您点击允许" : tipmsg,
-                    "我知道了",
-                    new OnItemClickListener() {
-                        @Override
-                        public void onItemClick(Object o, int position) {
-                            if (position >= 0) {
-                                PermissionActivityActivity.startSelf(AppManager.getCurrentActivity(), ann.typeWhenDeny(), ann.permissions());
-                            }
-                        }
-                    }).show();
+            PermissionsChecker checker = new PermissionsChecker();
+            if(checker.checkPermissions(ann.permissions()))
+            {
+
+            }else{
+                PermissionActivityActivity.startSelf(AppManager.getCurrentActivity(), ann.typeWhenDeny(), ann.permissions());
+            }
+
+            //            String tipmsg = ann.tipMsgBeforeRequest();
+            //            Utils.DialogUtils.showDefaulStyleDialog(
+            //                    Utils.Text.isEmpty(tipmsg) ? "接下来\n我们会进行权限请求\n请您点击允许" : tipmsg,
+            //                    "我知道了",
+            //                    new OnItemClickListener() {
+            //                        @Override
+            //                        public void onItemClick(Object o, int position) {
+            //                            if (position >= 0) {
+            //
+            //                            }
+            //                        }
+            //                    }).show();
 
             //        }
         }
